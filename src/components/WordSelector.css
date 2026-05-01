@@ -1,0 +1,257 @@
+.word-selector {
+  padding: 16px 16px 100px;
+  min-height: 100vh;
+  background: #FDFBF7;
+}
+
+.word-selector-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.back-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #5B8A72;
+  background: rgba(91, 138, 114, 0.1);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.word-selector-header h2 {
+  font-family: 'Noto Serif SC', Georgia, serif;
+  font-size: 20px;
+  color: #2D3436;
+  margin: 0;
+}
+
+.selector-hint {
+  font-size: 14px;
+  color: #636E72;
+  margin: 0 0 20px 0;
+}
+
+.story-review {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.story-review h3 {
+  font-size: 14px;
+  color: #636E72;
+  margin: 0 0 12px 0;
+}
+
+.story-with-words {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 15px;
+  line-height: 2;
+  color: #2D3436;
+}
+
+.clickable-word {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.clickable-word:hover {
+  background: rgba(91, 138, 114, 0.15);
+}
+
+.clickable-word.selected {
+  background: #E07A5F;
+  color: white;
+}
+
+.selected-words {
+  background: #F5E6D3;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.selected-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.selected-header span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2D3436;
+}
+
+.add-all-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: white;
+  background: #E07A5F;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.selected-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.selected-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2D3436;
+}
+
+.chip-meaning {
+  font-size: 12px;
+  color: #636E72;
+}
+
+.all-words h3 {
+  font-size: 14px;
+  color: #636E72;
+  margin: 0 0 12px 0;
+}
+
+.words-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.word-chip {
+  padding: 8px 14px;
+  font-size: 14px;
+  color: #2D3436;
+  background: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.word-chip:active {
+  transform: scale(0.95);
+}
+
+.word-chip.selected {
+  background: #E07A5F;
+  color: white;
+  border-color: #E07A5F;
+}
+
+.word-chip:hover:not(.selected) {
+  border-color: #5B8A72;
+}
+
+.meaning-input-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 200;
+}
+
+.meaning-input-content {
+  width: 100%;
+  max-width: 360px;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.meaning-input-content h3 {
+  font-family: 'Noto Serif SC', Georgia, serif;
+  font-size: 18px;
+  color: #2D3436;
+  margin: 0 0 16px 0;
+}
+
+.pending-word {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 18px;
+  color: #5B8A72;
+  padding: 12px;
+  background: rgba(91, 138, 114, 0.1);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  word-break: break-all;
+}
+
+.meaning-input-content textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  resize: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.meaning-input-content textarea:focus {
+  outline: none;
+  border-color: #5B8A72;
+}
+
+.input-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cancel-btn {
+  background: #F5F5F5;
+  color: #636E72;
+  border: none;
+}
+
+.confirm-btn {
+  background: #5B8A72;
+  color: white;
+  border: none;
+}
+
+.confirm-btn:disabled {
+  background: #B8C9BE;
+  cursor: not-allowed;
+}
+
+.confirm-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}

@@ -1,0 +1,63 @@
+.phrase-card-container {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.phrase-card {
+  flex: 1;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  position: relative;
+}
+
+.phrase-english {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 16px;
+  color: #2D3436;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.phrase-meaning {
+  font-size: 14px;
+  color: #636E72;
+}
+
+.edit-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #5B8A72;
+  background: rgba(91, 138, 114, 0.1);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  width: 72px;
+  background: #E07A5F;
+  color: white;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #c9694f;
+}
+
+.phrase-card-container.show-delete .phrase-card {
+  transform: translateX(-72px);
+}

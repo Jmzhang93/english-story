@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #FDFBF7;
+  color: #2D3436;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #FDFBF7;
+  position: relative;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 8px;
+  position: sticky;
+  top: 0;
+  background: #FDFBF7;
+  z-index: 10;
+}
+
+.app-header h1 {
+  font-family: 'Noto Serif SC', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #5B8A72;
+}
+
+.settings-btn {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  background: rgba(91, 138, 114, 0.1);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.settings-btn:hover {
+  background: rgba(91, 138, 114, 0.2);
+}
+
+.app-content {
+  padding-bottom: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D0D0D0;
+  border-radius: 2px;
+}
+
+::selection {
+  background: rgba(91, 138, 114, 0.2);
+}
+
+input, textarea, button {
+  font-family: inherit;
+}
+
+button {
+  touch-action: manipulation;
+}
