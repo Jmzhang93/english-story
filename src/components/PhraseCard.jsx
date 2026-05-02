@@ -5,6 +5,13 @@ export default function PhraseCard({ phrase, onDelete, onEdit }) {
   const [showDelete, setShowDelete] = useState(false);
   const [startX, setStartX] = useState(0);
 
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${month}月${day}日`;
+  };
+
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
   };
@@ -33,6 +40,7 @@ export default function PhraseCard({ phrase, onDelete, onEdit }) {
       >
         <div className="phrase-english">{phrase.phrase}</div>
         <div className="phrase-meaning">{phrase.meaning}</div>
+        <div className="phrase-date">{formatDate(phrase.created_at)}</div>
         <button
           className="edit-btn"
           onClick={(e) => {

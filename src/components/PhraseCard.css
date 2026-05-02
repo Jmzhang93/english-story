@@ -28,6 +28,12 @@
 .phrase-meaning {
   font-size: 14px;
   color: #636E72;
+  margin-bottom: 4px;
+}
+
+.phrase-date {
+  font-size: 11px;
+  color: #B0B0B0;
 }
 
 .edit-btn {
