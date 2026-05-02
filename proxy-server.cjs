@@ -42,8 +42,8 @@ if (IS_PROD) {
   const distPath = path.join(__dirname, 'dist');
   app.use(express.static(distPath));
 
-  // SPA 路由支持
-  app.get('(.*)', (req, res) => {
+  // SPA 路由支持 - 处理所有未匹配的路由
+  app.use((req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
