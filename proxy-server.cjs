@@ -43,7 +43,7 @@ if (IS_PROD) {
   app.use(express.static(distPath));
 
   // SPA 路由支持
-  app.get('*', (req, res) => {
+  app.get('(.*)', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
