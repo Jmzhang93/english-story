@@ -114,3 +114,26 @@
   background: #B8C9BE;
   cursor: not-allowed;
 }
+
+.ai-explain-row {
+  margin-bottom: 8px;
+}
+
+.ai-explain-btn {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #5B8A72;
+  background: rgba(91, 138, 114, 0.1);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ai-explain-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.ai-explain-btn:disabled {
+  color: #B0B0B0;
+  cursor: not-allowed;
+}

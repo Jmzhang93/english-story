@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { explainWord } from '../utils/api';
 import './PhraseModal.css';
 
 export default function PhraseModal({ isOpen, onClose, onSave, editPhrase }) {
   const [phrase, setPhrase] = useState('');
   const [meaning, setMeaning] = useState('');
+  const [isExplaining, setIsExplaining] = useState(false);
+  const [apiKey] = useLocalStorage('minimax_api_key', '');
 
   useEffect(() => {
     if (editPhrase) {
@@ -25,6 +29,19 @@ export default function PhraseModal({ isOpen, onClose, onSave, editPhrase }) {
     }
   };
 
+  const handleAIExplain = async () => {
+    if (!phrase.trim() || isExplaining) return;
+
+    setIsExplaining(true);
+    try {
+      const result = await explainWord(phrase.trim(), apiKey);
+      setMeaning(result.meaning);
+    } catch (err) {
+      console.error('Explain error:', err);
+    }
+    setIsExplaining(false);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -44,11 +61,21 @@ export default function PhraseModal({ isOpen, onClose, onSave, editPhrase }) {
           </div>
           <div className="form-group">
             <label>中文释义</label>
+            <div className="ai-explain-row">
+              <button
+                type="button"
+                className="ai-explain-btn"
+                onClick={handleAIExplain}
+                disabled={!phrase.trim() || isExplaining}
+              >
+                {isExplaining ? 'AI 解释中...' : '✨ AI 帮我写释义'}
+              </button>
+            </div>
             <textarea
               value={meaning}
               onChange={e => setMeaning(e.target.value)}
               placeholder="e.g. 像鸟儿一样自由"
-              rows={2}
+              rows={3}
             />
           </div>
           <div className="modal-actions">
