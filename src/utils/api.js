@@ -104,3 +104,83 @@ const parseStoryResponse = (content) => {
     usedPhrases: [],
   };
 };
+
+export const explainWord = async (word, apiKey) => {
+  if (!apiKey) {
+    throw new Error('请先在设置中配置 API Key');
+  }
+
+  const prompt = `Explain the English word "${word}" in Chinese. Provide:
+1. Chinese meaning
+2. Brief usage example (1 sentence in English with Chinese translation)
+
+Format your response as:
+[M]
+Chinese meaning here
+[/M]
+[E]
+English example sentence here
+[/E]
+[TE]
+Chinese translation here
+[/TE]`;
+
+  const requestBody = {
+    apiKey,
+    body: {
+      model: 'MiniMax-M2.7',
+      max_tokens: 500,
+      messages: [
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+    },
+  };
+
+  const response = await fetch(PROXY_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error?.message || `API 请求失败: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  let content = '';
+  if (data.content && Array.isArray(data.content)) {
+    content = data.content
+      .filter(block => block.type === 'text')
+      .map(block => block.text)
+      .join('\n');
+  } else if (data.content && typeof data.content === 'string') {
+    content = data.content;
+  } else if (data.text) {
+    content = data.text;
+  }
+
+  if (!content) {
+    throw new Error('API 返回数据格式错误');
+  }
+
+  return parseExplanation(content);
+};
+
+const parseExplanation = (content) => {
+  const meaningMatch = content.match(/\[M\]([\s\S]*?)\[\/M\]/);
+  const exampleMatch = content.match(/\[E\]([\s\S]*?)\[\/E\]/);
+  const translationMatch = content.match(/\[TE\]([\s\S]*?)\[\/TE\]/);
+
+  return {
+    meaning: meaningMatch ? meaningMatch[1].trim() : '',
+    example: exampleMatch ? exampleMatch[1].trim() : '',
+    translation: translationMatch ? translationMatch[1].trim() : '',
+  };
+};

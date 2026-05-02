@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { usePhrases } from '../hooks/usePhrases';
+import { explainWord } from '../utils/api';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import './WordSelector.css';
 
 export default function WordSelector({ story, onClose, onAddPhrases }) {
   const { addPhrase } = usePhrases();
+  const [apiKey] = useLocalStorage('minimax_api_key', '');
   const [selectedWords, setSelectedWords] = useState([]);
-  const [inputWord, setInputWord] = useState('');
   const [inputMeaning, setInputMeaning] = useState('');
+  const [inputExample, setInputExample] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [pendingWord, setPendingWord] = useState('');
+  const [isExplaining, setIsExplaining] = useState(false);
 
   const words = story.match(/\b[a-zA-Z][a-zA-Z'-]*\b/g) || [];
 
@@ -24,23 +28,46 @@ export default function WordSelector({ story, onClose, onAddPhrases }) {
   const handleStartAdd = (word) => {
     setPendingWord(word);
     setInputMeaning('');
+    setInputExample('');
     setShowInput(true);
+  };
+
+  const handleAIExplain = async () => {
+    if (!pendingWord || isExplaining) return;
+
+    setIsExplaining(true);
+    try {
+      const result = await explainWord(pendingWord, apiKey);
+      setInputMeaning(result.meaning);
+      setInputExample(result.example ? `${result.example}\n${result.translation}` : '');
+    } catch (err) {
+      console.error('Explain error:', err);
+      setInputMeaning('（AI解释失败，请手动输入）');
+    }
+    setIsExplaining(false);
   };
 
   const handleConfirmAdd = () => {
     if (pendingWord && inputMeaning.trim()) {
-      addPhrase(pendingWord, inputMeaning.trim());
+      const finalExample = inputExample.trim() ? `\n例句：${inputExample}` : '';
+      addPhrase(pendingWord, inputMeaning.trim() + finalExample);
       setSelectedWords(selectedWords.filter(w => w !== pendingWord.toLowerCase()));
       setShowInput(false);
       setPendingWord('');
       setInputMeaning('');
+      setInputExample('');
     }
   };
 
   const handleAddAllSelected = () => {
-    setShowInput(true);
-    setPendingWord(selectedWords.join(', '));
-    setInputMeaning('');
+    if (selectedWords.length === 1) {
+      handleStartAdd(selectedWords[0]);
+    } else {
+      setShowInput(true);
+      setPendingWord(selectedWords.join(', '));
+      setInputMeaning('');
+      setInputExample('');
+    }
   };
 
   const getUniqueWords = () => {
@@ -98,7 +125,6 @@ export default function WordSelector({ story, onClose, onAddPhrases }) {
                 onClick={() => handleStartAdd(word)}
               >
                 {word}
-                <span className="chip-meaning">{inputMeaning || '添加释义'}</span>
               </button>
             ))}
           </div>
@@ -125,12 +151,26 @@ export default function WordSelector({ story, onClose, onAddPhrases }) {
           <div className="meaning-input-content">
             <h3>添加释义</h3>
             <div className="pending-word">{pendingWord}</div>
+            <div className="ai-explain-row">
+              <button
+                className="ai-explain-btn"
+                onClick={handleAIExplain}
+                disabled={isExplaining}
+              >
+                {isExplaining ? 'AI 解释中...' : '✨ AI 帮我写释义'}
+              </button>
+            </div>
             <textarea
               value={inputMeaning}
               onChange={e => setInputMeaning(e.target.value)}
               placeholder="输入中文释义"
               rows={2}
-              autoFocus
+            />
+            <textarea
+              value={inputExample}
+              onChange={e => setInputExample(e.target.value)}
+              placeholder="（可选）输入例句和翻译"
+              rows={2}
             />
             <div className="input-actions">
               <button
