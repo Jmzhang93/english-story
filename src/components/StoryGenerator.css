@@ -47,6 +47,55 @@
   background: #F5F5F5;
 }
 
+.settings-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.setting-group label {
+  font-size: 13px;
+  color: #636E72;
+}
+
+.option-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.option-btn {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 13px;
+  background: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.option-btn:active {
+  transform: scale(0.98);
+}
+
+.option-btn.active {
+  background: #5B8A72;
+  color: white;
+  border-color: #5B8A72;
+}
+
+.option-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .generate-btn {
   width: 100%;
   padding: 16px;
@@ -173,6 +222,47 @@
 
 .reset-btn:active {
   background: #F5F5F5;
+}
+
+.explain-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  color: #5B8A72;
+  background: rgba(91, 138, 114, 0.1);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.explain-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.explain-btn:disabled {
+  color: #B0B0B0;
+  cursor: not-allowed;
+}
+
+.story-explanation {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.story-explanation h4 {
+  font-size: 14px;
+  color: #5B8A72;
+  margin: 0 0 12px 0;
+}
+
+.explanation-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2D3436;
+  white-space: pre-wrap;
 }
 
 .empty-state {
