@@ -40,11 +40,19 @@ app.post('/api/proxy', async (req, res) => {
 // 生产环境：托管前端静态文件
 if (IS_PROD) {
   const distPath = path.join(__dirname, 'dist');
-  app.use(express.static(distPath));
 
-  // SPA 路由支持 - 处理所有未匹配的路由
-  app.use((req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+  // 先检查是否是已知的 API 或静态文件路径
+  app.use((req, res, next) => {
+    // 跳过 API 路由
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    // 静态文件
+    if (req.path.includes('.')) {
+      return express.static(distPath)(req, res, next);
+    }
+    // SPA 路由 - 返回 index.html
+    return res.sendFile(path.join(distPath, 'index.html'));
   });
 }
 
