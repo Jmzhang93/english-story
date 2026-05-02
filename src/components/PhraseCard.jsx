@@ -7,9 +7,10 @@ export default function PhraseCard({ phrase, onDelete, onEdit }) {
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
+    const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    return `${month}月${day}日`;
+    return `${year}年${month}月${day}日`;
   };
 
   const handleTouchStart = (e) => {
